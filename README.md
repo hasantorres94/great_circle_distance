@@ -28,3 +28,10 @@ The trade-off: the law of cosines loses precision for very short distances (sub-
 - Longitudes are wrapped, so `{ longitude: 190 }` is treated as `-170`.
 - Latitudes outside `[-90, 90]` throw; longitudes outside `[-180, 180]` do not.
 - Non-finite coordinates (NaN, Infinity) throw a `TypeError`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
